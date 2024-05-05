@@ -1,0 +1,137 @@
+package org.launchcode.hellospring.controllers;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequestMapping("hello")
+public class HelloController {
+
+    // lives /hello/goodbye
+    @GetMapping("goodbye")
+    @ResponseBody
+    public String goodbye() {
+        return "Goodbye, Spring!";
+    }
+
+    // lives /hello/hello
+    // handles request of the form /hello?name=<name>
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+    @ResponseBody
+    public String helloWithQueryParam(@RequestParam String name) {
+        return "hello, " + name + "!!!";
+    }
+
+    // lives /hello/{name}
+    // handles request of the form /hello/LaunchCode
+    @GetMapping("{name}")
+    @ResponseBody
+    public String helloWithPathParam(@PathVariable String name) {
+        return "hello, " + name + "!!!";
+    }
+
+    // lives /hello/form
+    // displays a form with text input and select options
+    @GetMapping("form")
+    public String helloForm() {
+        return "<html>" +
+                "<body>" +
+                "<form action='/hello' method='post'>" + // submit a request to /hello
+                "<input type='text' name='name'>" +
+                "<select name='language'>" +
+                    "<option value='English'>English</option>" +
+                    "<option value='French'>French</option>" +
+                    "<option value='Spanish'>Spanish</option>" +
+                    "<option value='Italian'>Italian</option>" +
+                    "<option value='German'>German</option>" +
+                "</select>" +
+                "<input type='submit' value='Greet me!!'>" +
+                "</form>" +
+                "</body>" +
+                "</html>";
+    }
+}
+
+
+
+
+// handles request at path /hello
+/*    @GetMapping("hello")
+    @ResponseBody
+    public String hello(){
+        return "hello, Spring!";
+    }*/
+
+/*
+
+<select name="pets" id="pet-select">
+          <option value="">--Please choose an option--</option>
+          <option value="dog">Dog</option>
+          <option value="cat">Cat</option>
+          <option value="hamster">Hamster</option>
+          <option value="parrot">Parrot</option>
+          <option value="spider">Spider</option>
+          <option value="goldfish">Goldfish</option>
+</select>*/
+
+
+
+
+
+
+//////////////////////
+
+
+    // lives /hello/goodbye
+    @GetMapping("goodbye")
+
+    public String goodbye() {
+        return "Goodbye, Spring!";
+    }
+
+    //lives /hello/hello
+    //handles request of the form /hello?name=<name>
+    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+
+    public String helloWithQueryParam(@RequestParam String name) {
+        return "hello, " + name + "!!!";
+    }
+    //lives /hello/LaunchCode
+    //handles request of the form /hello/LaunchCode
+    @GetMapping("{name}")
+
+    public String helloWithPathParam(@PathVariable String name) {
+        return "hello, " + name + "!!!";
+    }
+    // lives hello/form
+    @GetMapping("form")
+
+/*
+
+<select name="pets" id="pet-select">
+          <option value="">--Please choose an option--</option>
+          <option value="dog">Dog</option>
+          <option value="cat">Cat</option>
+          <option value="hamster">Hamster</option>
+          <option value="parrot">Parrot</option>
+          <option value="spider">Spider</option>
+          <option value="goldfish">Goldfish</option>
+</select>*/
+
+    public String hello() {
+        return "<html>" +
+                "<body>" +
+                "<form action='/hello'>" + //submit a request to /hello
+                "<input type='text' name='name'>" +
+                "<select name='language'>" +
+                    "<option value='English'>English</option>" +
+                    "<option value='French'>French</option>" +
+                    "<option value='Spanish'>Spanish</option>" +
+                    "<option value='Italian'>Italian</option>" +
+                    "<option value='German'>German</option>" +
+                "</select>" +
+                "<input type='submit' value='Greet me!!'>" +
+                "</form>" +
+                "</body>" +
+                "</html>";
+    }
