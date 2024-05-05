@@ -7,11 +7,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 public class HelloController {
 
-    @GetMapping
+    //Handles request at path /hello
+    @GetMapping("hello")
     @ResponseBody
-    public String hello(){
+    public String hello() {
         return "Hello, Spring!";
+    }
 
-        //this is part one
+    // lives /hello/goodbye
+    @GetMapping("goodbye")
+    @ResponseBody
+    public String goodbye() {
+        return "Goodbye, Spring!";
     }
 }
