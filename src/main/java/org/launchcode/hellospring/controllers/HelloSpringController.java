@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 @ResponseBody
 @RequestMapping("hello")
-public class HelloController {
+public class HelloSpringController {
     //handle request at path http://localhost:8080/hello
 
 //    @GetMapping("hello")
@@ -24,7 +24,7 @@ public class HelloController {
     //handle requests of the form http://localhost:8080/hello?name=LaunchCode
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
     public String helloWithQueryParam(@RequestParam String name, @RequestParam String language) {
-        String properGreeting = HelloController.createMessage(name, language);
+        String properGreeting = HelloSpringController.createMessage(name, language);
         return "<h3 style= 'color:pink'>" + properGreeting + "</h3>"; //bonus mission to embellish plain text
     }
 
