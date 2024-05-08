@@ -4,83 +4,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
+@ResponseBody
 @RequestMapping("hello")
 public class HelloController {
 
-    // lives /hello/goodbye
-    @GetMapping("goodbye")
+/*    //Handles request at path /hello
+    @GetMapping("hello")
     @ResponseBody
-    public String goodbye() {
-        return "Goodbye, Spring!";
-    }
-
-    // lives /hello/hello
-    // handles request of the form /hello?name=<name>
-    @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-    @ResponseBody
-    public String helloWithQueryParam(@RequestParam String name) {
-        return "hello, " + name + "!!!";
-    }
-
-    // lives /hello/{name}
-    // handles request of the form /hello/LaunchCode
-    @GetMapping("{name}")
-    @ResponseBody
-    public String helloWithPathParam(@PathVariable String name) {
-        return "hello, " + name + "!!!";
-    }
-
-    // lives /hello/form
-    // displays a form with text input and select options
-    @GetMapping("form")
-    public String helloForm() {
-        return "<html>" +
-                "<body>" +
-                "<form action='/hello' method='post'>" + // submit a request to /hello
-                "<input type='text' name='name'>" +
-                "<select name='language'>" +
-                    "<option value='English'>English</option>" +
-                    "<option value='French'>French</option>" +
-                    "<option value='Spanish'>Spanish</option>" +
-                    "<option value='Italian'>Italian</option>" +
-                    "<option value='German'>German</option>" +
-                "</select>" +
-                "<input type='submit' value='Greet me!!'>" +
-                "</form>" +
-                "</body>" +
-                "</html>";
-    }
-}
-
-
-
-
-// handles request at path /hello
-/*    @GetMapping("hello")
-    @ResponseBody
-    public String hello(){
-        return "hello, Spring!";
+    public String hello() {
+        return "Hello, Spring!";
     }*/
-
-/*
-
-<select name="pets" id="pet-select">
-          <option value="">--Please choose an option--</option>
-          <option value="dog">Dog</option>
-          <option value="cat">Cat</option>
-          <option value="hamster">Hamster</option>
-          <option value="parrot">Parrot</option>
-          <option value="spider">Spider</option>
-          <option value="goldfish">Goldfish</option>
-</select>*/
-
-
-
-
-
-
-//////////////////////
-
 
     // lives /hello/goodbye
     @GetMapping("goodbye")
@@ -90,48 +23,61 @@ public class HelloController {
     }
 
     //lives /hello/hello
-    //handles request of the form /hello?name=<name>
+    // handles request of the form /hello?name=<name>
     @RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
-
-    public String helloWithQueryParam(@RequestParam String name) {
-        return "hello, " + name + "!!!";
+    public String helloWithQueryParam(@RequestParam String name, @RequestParam String language) {
+        String properGreeting = HelloController.createMessage(name, language);
+        return properGreeting;
     }
-    //lives /hello/LaunchCode
-    //handles request of the form /hello/LaunchCode
+
+    // handles request of the form /hello/LaunchCode
     @GetMapping("{name}")
 
     public String helloWithPathParam(@PathVariable String name) {
-        return "hello, " + name + "!!!";
+        return "hello, " + name + "!";
     }
-    // lives hello/form
+
+    // handles POST request from form submission
+    @PostMapping("hello")
+    public String helloFormSubmit(@RequestParam String name) {
+        return "hello, " + name + "!!!!!!!!";
+    }
+
+    // lives /hello/form
+    // displays a form with text input
     @GetMapping("form")
-
-/*
-
-<select name="pets" id="pet-select">
-          <option value="">--Please choose an option--</option>
-          <option value="dog">Dog</option>
-          <option value="cat">Cat</option>
-          <option value="hamster">Hamster</option>
-          <option value="parrot">Parrot</option>
-          <option value="spider">Spider</option>
-          <option value="goldfish">Goldfish</option>
-</select>*/
-
-    public String hello() {
+    public String helloForm() {
         return "<html>" +
                 "<body>" +
-                "<form action='/hello'>" + //submit a request to /hello
+                "<form action='/hello/hello' method='post'>" + // submit a request to /hello
                 "<input type='text' name='name'>" +
                 "<select name='language'>" +
-                    "<option value='English'>English</option>" +
-                    "<option value='French'>French</option>" +
-                    "<option value='Spanish'>Spanish</option>" +
-                    "<option value='Italian'>Italian</option>" +
-                    "<option value='German'>German</option>" +
+                "<option value='English'>English</option>" +
+                "<option value='French'>French</option>" +
+                "<option value='Spanish'>Spanish</option>" +
+                "<option value='Italian'>Italian</option>" +
+                "<option value='German'>German</option>" +
                 "</select>" +
                 "<input type='submit' value='Greet me!!'>" +
                 "</form>" +
                 "</body>" +
                 "</html>";
     }
+
+    public static String createMessage(String name, String language){
+        switch (language){
+            case "Spanish" :
+                return "Hola," + name;
+            case "French":
+                return "Bonjour," + name;
+            case "Italian":
+                return "Ciao," + name;
+            case "German":
+                return "Hallo," + name;
+            case "English":
+            default:
+                return "Hello," + name;
+        }
+    }
+
+}
